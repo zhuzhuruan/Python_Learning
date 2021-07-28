@@ -1,0 +1,12 @@
+https://zhuanlan.zhihu.com/p/23167699
+
+https://www.cnblogs.com/yoyoketang/p/12431726.html
+
+# Git账号密码
+user:zhuzhuruan
+email:yyuan_cao@163.com
+pswd:yyuanCao1
+Repository:Cao_Git
+
+# python官方文档
+https://docs.python.org/zh-cn/3/library
