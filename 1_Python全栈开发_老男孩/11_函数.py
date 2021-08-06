@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-
+""""""
 """
--------------------------------------------------文件-------------------------------------------------
+-------------------------------------------------函数-------------------------------------------------
 一、函数的定义
 1、定义函数
     （1）申请内存空间保存函数体代码
@@ -52,5 +52,56 @@
             m.append('bbb')
             func(1)
 
+    （三）可变长度的参数（*与**的用法）
+        1、定义：可变长度指的是在调用函数时，传入的值（实参）的个数不固定，而实参是用来为形参赋值的，所以对应着，针对溢出的实参必须有对应的形参来接收
+        2、分类：*与**
+            （1）*
+                1）用来接收溢出的位置实参，溢出的位置实参会被*保存成元组的格式，然后赋值给紧跟其后的参数名(规范性命名：args)
+                    def func(x, y, *args):      
+                        print(x, y, args)
+                    func(1,2,3,4,5,6,7,8)
+                2）可以用在实参中，实参中紧跟*后的实参会被拆分成位置实参（*后紧跟的实参是可循环取值的类型）
+                    def func(x, y, z):
+                        print(x, y, z)
+                    func(*[1,2,3])
+                3）形参和实参中可以同时包含*
+                    def func(x, y, *args):
+                        print(x, y, args)
+                    func('hi', 'hey', *'hello')       
+            （2）**
+                1）用来接收溢出的关键词实参，溢出的关键字实参会被**保存成字典的格式，然后赋值给紧跟其后的参数名（规范性命名：kwargs）
+                    def func(x, y, **kwargs):
+                        print(x, y, **kwargs)
+                    func(1, 2, name='cyy', age=23)
+                2）可以用在实参中，实参中紧跟**后的实参会被拆分成关键字实参（**后紧跟的实参只能是字典类型）
+                    def func(name, gender, age):
+                        print(name, gender, age)
+                    func(**{'name': 'cyy', 'gender': 'female', 'age': 23})   
+                3）形参和实参中可以同时包含**
+                    def func(name, gender, **kwargs):
+                        print(name, gender, kwargs)
+                    func(**{'name':'cyy', 'gender':'female', 'age':23, 'marital':'single'})
+    
+    （四）命名关键字参数
+        1、定义：在定义函数时，在形参*后面定义的参数，称之为命名关键字参数
+                def func(x, y, *, a, b):    # a、b是命名关键字参数
+                    print(x, y)
+                def func(x, y, *args, a, b):    # a、b是命名关键字参数
+                    print(x, y)
+        2、特点：命名关键字参数必须按照key=value的关键字形式
+                def func(name, age, *, gender, marry_status):
+                    print(name, age, gender, marry_status)
+                func('cyy', 23, gender='female', marry_status='single')
+    
+    （五）组合使用：
+        1、规则：位置形参、默认形参、可变位置形参、命名关键字形参、可变关键字形参
+                def func(name, age=18, *args, gender, **kwargs):
+                    print(name, age, args, gender, kwargs)
+
+
+
+
+            
 """
+
 
