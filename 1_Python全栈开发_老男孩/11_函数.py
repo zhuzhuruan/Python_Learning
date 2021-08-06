@@ -99,9 +99,153 @@
                     print(name, age, args, gender, kwargs)
 
 
-
-
+三、函数对象
+1、定义：可以把函数当成变量去用
+2、特点：
+    （1）可以赋值
+            def func1():
+                print("Hello World")
+            func2 = func1       # 函数的内存地址
+            func2()
+    
+    （2）可以当做函数的参数传入
+            def func():
+                print("Hello World")
+             
+            def foo(x):
+                print(x)
+                x()
             
-"""
+            foo(func)     
+    
+    （3）可以当做函数的返回值
+            def func():
+                print("Hello World")
+            
+            def foo(x):
+                return x
+                
+            res = foo(func)
+            print(res)
+            res()
+            
+    （4）可以当做容器类型的元素
+            def func():
+                print("Hello World")
+            lst = [func,]
+            lst[0]()
+            
+            --------------------------------------案例--------------------------------------
+            def login():
+                print("登录功能")
+            
+            def transfer():
+                print("转账功能")
+            
+            def check_balance():
+                print("查询余额")
+            
+            def withdraw():
+                print("提现功能")
+            
+            def register():
+                print("注册功能")
+            
+            while True:
+                print(""""""
+                    0--------退出
+                    1--------登录功能
+                    2--------转账功能
+                    3--------查询余额
+                    4--------提现功能
+                    5--------注册功能
+                """""")
+            choice = input("请输入命令编号：").strip()
+            if not choice.isdigit():  
+                print("您输入的格式有误，请输入命令编号")
+                continue
+                
+            if choice == '0':
+                break
+            if choice == '1':
+                login()
+            elif choice == '2':
+                transfer()
+            elif choice == '3':
+                check_balance()
+            elif choice == '4':
+                withdraw()
+            elif choice == '5':
+                register()
+            else:
+                print("您输入的命令不存在")
+            
+            --------------------------------------优化--------------------------------------
+            def login():
+                print("登录功能")
+            
+            
+            def transfer():
+                print("转账功能")
+            
+            
+            def check_balance():
+                print("查询余额")
+            
+            
+            def withdraw():
+                print("提现功能")
+            
+            
+            def register():
+                print("注册功能")
+            
+            
+            func_dic = {'0':['退出',None], '1':['登录功能',login], '2':['转账功能',transfer], '3':['查询余额',check_balance], '4':['提现功能',withdraw], '5':['注册功能',register]}
+            
+            while True:
+                for key, value in func_dic.items():
+                    print(key, '------------', value[0])
+                choice = input("请输入命令编号：").strip()
+                if not choice.isdigit():
+                    print("您输入的格式有误，请输入命令编号")
+                    continue
+                if choice == '0':
+                    break
+                if choice in func_dic:
+                    func_dic[choice][1]()
+            
+            
+四、函数嵌套
+1、嵌套调用：在调用函数A的过程中又调用函数B
+            def func1():
+                ...
+                func2()
+                
+2、嵌套定义：在定义函数A的过程中又定义函数B
+            def func1():
+                ...
+                def func2():
+                    pass
+                    
+            --------------------------------------案例--------------------------------------
+            from math import pi
+            def circle(radius, action):
+                def perimeter(radius):
+                    return 2 * pi * radius
+            
+                def area(radius):
+                    return pi * (radius ** 2)
+            
+                if action == 0:
+                    return perimeter(radius)
+                elif action == 1:
+                    return area(radius)
+            
+            res = circle(3, 1)
+            print(res) 
 
+
+       
+"""
 
