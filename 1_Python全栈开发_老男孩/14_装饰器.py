@@ -274,15 +274,6 @@
         print(res_adr)
         
 
-三、装饰器的加载顺序和运行顺序
-    
-    @deco1          # func = deco1(deco2.wrapper的内存地址)
-    @deco2          # deco2.wrapper的内存地址 = deco2(deco3.wrapper的内存地址)
-    @deco3          # deco3.wrapper的内存地址 = deco3(func)
-    def func():
-        pass
-
-
 
 """
 
