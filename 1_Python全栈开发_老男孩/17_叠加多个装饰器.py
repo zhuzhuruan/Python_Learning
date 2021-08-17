@@ -127,7 +127,8 @@ max = x if x>y else y
 print(max)
 
 
--------------------------------------------------列表生成式-------------------------------------------------
+-------------------------------------------------其他生成式-------------------------------------------------
+一、列表生成式
 # 语法格式: 循环可迭代对象，将其中满足条件的元素添加进新列表中
           [满足条件的元素 for 元素 in 可迭代对象 if 条件]
           [满足条件的元素 for 元素 in 可迭代对象] ====> [满足条件的元素 for 元素 in 可迭代对象 if True]
@@ -151,7 +152,53 @@ lst = ['aaa_v', 'bbb', 'ccc_v', 'dddd']
 upper_lst = [item.upper().strip('_V') for item in lst]
 print(upper_lst)
 
+
+二、字典生成式
+dic_key = ['name', 'age', 'gender']
+new_dic = {key: None for key in dic_key}
+print(new_dic)
+
+dic_key = [('name', 'cyy'), ('age', 18), ('gender', 'female')]
+new_dic = {key:value for key, value in dic_key if key != 'gender'}
+print(new_dic)
+
+
+三、集合生成式
+set_key = ['name', 'age', 'gender']
+new_set = {item for item in set_key}
+print(new_set)
+
+注意：没有元组生成式，因为生成式这种形式其实是进行append的一个操作，元组没有append
+
+
+四、生成器表达式
+# 用()表示生成器表达式
+num_iterator = (i for i in range(10) if i % 2 == 0)
+while True:
+    try:
+        print(num_iterator.__next__())
+    except StopIteration:
+        break
+
+
+# 案例：获取文件的字符长度
+    # 方案一:循环每行叠加
+        with open('17_叠加多个装饰器.py', 'rt', encoding='utf-8') as f:
+            len_of_line = 0
+            for line in f:
+                len_of_line += len(line)
+        print(len_of_line)
+    
+    # 使用列表生成式结合sum()叠加，缺点是如果行数过多，那么列表中的元素太多
+        with open('17_叠加多个装饰器.py', 'rt', encoding='utf-8') as f:
+            len_of_line = sum([len(line) for line in f])
+        print(len_of_line)
+    
+    # 使用生成器表达式
+        with open('17_叠加多个装饰器.py', 'rt', encoding='utf-8') as f:
+            len_of_line = sum((len(line) for line in f))
+        print(len_of_line)
+    
+
 """
-
-
 
