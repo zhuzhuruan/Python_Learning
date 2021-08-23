@@ -55,5 +55,5 @@
 """
 
 
-with open('练习文件\\文件的使用.txt', 'a+t', encoding='utf-8') as f:
+with open('practice_file\\文件的使用.txt', 'a+t', encoding='utf-8') as f:
     f.write('赵二:524')

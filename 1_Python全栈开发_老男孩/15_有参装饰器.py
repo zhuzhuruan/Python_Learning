@@ -60,7 +60,7 @@
             name = input("请输入您的姓名：").strip()
             password = input("请输入您的姓名：").strip()
     
-            with open("练习文件/文件的使用.txt", 'rt', encoding='utf-8') as f:
+            with open("practice_file/文件的使用.txt", 'rt', encoding='utf-8') as f:
                 for line in f:
                     user_in, pwd_in = line.strip().split(':')
                     if name == user_in and password == pwd_in:
@@ -93,7 +93,7 @@
                 password = input("请输入您的姓名：").strip()
                 if db_type == 'file':
                     '''基于文件来源的验证'''
-                    with open("练习文件/文件的使用.txt", 'rt', encoding='utf-8') as f:
+                    with open("practice_file/文件的使用.txt", 'rt', encoding='utf-8') as f:
                         for line in f:
                             user_in, pwd_in = line.strip().split(':')
                             if name == user_in and password == pwd_in:
@@ -143,7 +143,7 @@
                 password = input("请输入您的姓名：").strip()
                 if db_type == 'file':
                     '''基于文件来源的验证'''
-                    with open("练习文件/文件的使用.txt", 'rt', encoding='utf-8') as f:
+                    with open("practice_file/文件的使用.txt", 'rt', encoding='utf-8') as f:
                         for line in f:
                             user_in, pwd_in = line.strip().split(':')
                             if name == user_in and password == pwd_in:
@@ -192,7 +192,7 @@ def auth(db_type):
             password = input("请输入您的姓名：").strip()
             if db_type == 'file':
                 '''基于文件来源的验证'''
-                with open("练习文件/文件的使用.txt", 'rt', encoding='utf-8') as f:
+                with open("practice_file/文件的使用.txt", 'rt', encoding='utf-8') as f:
                     for line in f:
                         user_in, pwd_in = line.strip().split(':')
                         if name == user_in and password == pwd_in:

@@ -3,7 +3,7 @@ print('模块文件foo.by'.center(100,'='))
 # 文件名：foo.py
 print(__name__)
 
-x=1
+x=222
 def get():
     print(x)
 

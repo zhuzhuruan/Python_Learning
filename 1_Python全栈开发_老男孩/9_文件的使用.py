@@ -24,12 +24,12 @@
         （2）针对的是所有文件
         （3）一定不能指定字符编码
 
-                with open('练习文件\\文件的使用.txt', 'rb') as f:
+                with open('practice_file\\文件的使用.txt', 'rb') as f:
                     res = f.read()         # utf-8对应的二进制
                     print(res)
                     print(res.decode())    # 将utf-8对应的二进制解码为unicode对应的字符
 
-                with open('练习文件\\pywcloud.png', 'rb') as f:
+                with open('practice_file\\pywcloud.png', 'rb') as f:
                     res = f.read()
                     print(res)
 
@@ -130,7 +130,7 @@
 四、文件的循环读写
 1、循环读：
     （1）readline(size=-1): 读入一行内容，如果给出参数，读入该行前size长度
-            with open('练习文件\\文件的使用.txt', 'rt', encoding='utf-8') as f:
+            with open('practice_file\\文件的使用.txt', 'rt', encoding='utf-8') as f:
                 while True:
                     res = f.readline()
                     if len(res) == 0:
@@ -139,13 +139,13 @@
                         print(res)
 
     （2） <f>.readlines(hint=-1): 读入文件所有行，以每行为元素形成列表，如果给出参数，读入前hint行
-            with open('练习文件\\文件的使用.txt', 'rt', encoding='utf-8') as f:
+            with open('practice_file\\文件的使用.txt', 'rt', encoding='utf-8') as f:
                 res = f.readlines()
                 print(res)
 
 2、循环写
     （1）writelines(lines): 将一个元素全为字符串的列表写入文件（直接拼接不换行）
-            with open('练习文件\\文件的使用.txt', 'wt', encoding='utf-8') as f:
+            with open('practice_file\\文件的使用.txt', 'wt', encoding='utf-8') as f:
                 res = ['aaa', 'bbb', 'ccc']
                 f.writelines()
 
@@ -161,7 +161,7 @@
         -- 2:参照物是文件末尾位置（应该倒着移动）
 
 3、f.tell():告知文件当前指针位置
-        with open('练习文件\\文件的使用.txt', 'a+t', encoding='utf-8') as f:
+        with open('practice_file\\文件的使用.txt', 'a+t', encoding='utf-8') as f:
             f.write('')
 
 
@@ -172,7 +172,7 @@ count = 0
 while count < 3:
     info_username = input("请输入您的用户名：")
     info_password = input("请输入您的密码：")
-    with open('练习文件/文件的使用.txt', 'rt', encoding='utf-8') as f:
+    with open('practice_file/文件的使用.txt', 'rt', encoding='utf-8') as f:
         for line in f:
             username, password = line.strip().split(':')
             if info_username == username and info_password == password:
@@ -206,10 +206,10 @@ with open(r'{}'.format(src_file), 'rb') as f:
 # -------------------------------------------------模仿监测日志-------------------------------------------------
 import time
 
-with open('练习文件\\文件的使用.txt', 'a+t', encoding='utf-8') as f:
+with open('practice_file\\文件的使用.txt', 'a+t', encoding='utf-8') as f:
     f.write('赵一:524')
 
-with open('练习文件\\文件的使用.txt', 'rb') as f:
+with open('practice_file\\文件的使用.txt', 'rb') as f:
     f.seek(0, 2)  # 指针移动到文件末尾
     while True:
         line = f.readline()
