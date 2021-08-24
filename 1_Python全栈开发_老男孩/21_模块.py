@@ -90,8 +90,8 @@
 # 当py文件作为模块使用前，它本身也是一个可以作为程序执行的文件，例如foo.py中"get()和change()"有这两行代码，执行foo.py就可以把它作为程序直接用
   当它作为模块使用时，import foo这一步首先就要执行foo文件，但是当foo文件是作为模块导入使用时，并不希望执行文件中的调用代码，如何实现呢？
   
-  直接执行foo.py文件，__name__的值是__main__
-  import foo，__name__的值是模块名foo
+  直接执行foo.py文件，print(__name__)的值是__main__
+  import foo，print(foo.__name__)的值是模块名foo
   所以在foo.py文件中，调用代码可以写成：
         if __name__ == '__main__':      # 直接执行foo要做的事情
             get()
