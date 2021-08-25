@@ -19,6 +19,7 @@
         res_err = obj.stderr.read().decode('gbk')
         print(res_err)
   
-  
+
+
                
 """
