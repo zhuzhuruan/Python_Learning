@@ -38,13 +38,16 @@
 """
 
 import random
+
+
 def get_random_code(code_length):
     identifying_code = ''
     for i in range(code_length):
-        letter = chr(random.randint(65, 90))        # 随机大写字母
-        number = str(random.randint(0, 9))          # 随机整数
+        letter = chr(random.randint(65, 90))  # 随机大写字母
+        number = str(random.randint(0, 9))  # 随机整数
         identifying_code += random.choice([letter, number])
     return identifying_code
+
 
 identifying_code = get_random_code(6)
 print(identifying_code)
