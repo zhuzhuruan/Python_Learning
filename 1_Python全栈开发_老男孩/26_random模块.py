@@ -51,3 +51,7 @@ def get_random_code(code_length):
 
 identifying_code = get_random_code(6)
 print(identifying_code)
+
+
+
+

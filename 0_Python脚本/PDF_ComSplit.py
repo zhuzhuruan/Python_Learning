@@ -71,7 +71,7 @@ def test():
     df = pd.DataFrame()
 
     # 使用with语句打开pdf文件
-    with pdfplumber.open("C:\\Users\\zhongbiao\\Desktop\\新建文件夹\\10.pdf") as pdf:
+    with pdfplumber.open(r"D:\mydata\南京场景收\2021年二季度发布应用场景清单 - 城市治理.pdf") as pdf:
         # 使用for循环遍历每个pages
         for page in pdf.pages:
             print(page)
@@ -82,18 +82,23 @@ def test():
             df1 = pd.DataFrame(d[1:], columns=d[0])
             # 添加至df数据框中
             df = df.append(df1)
-    df.to_excel("C:\\Users\\zhongbiao\\Desktop\\新建文件夹\\10.xls")
+    df.to_excel(r"D:\mydata\南京场景收\10.xls")
 
 
 def contact_excel(file_list):
-    df = pd.DataFrame(columns=['序号','类别','八大产业链领域','建设区域',	'应用场景名称','搭建单位','项目起止日期','应用场景概述','欢迎合作的方向','联系人','联系方式'])
+    # df = pd.DataFrame(columns=['序号','应用场景所属类别','具体细分领域','所属产业领域','应用场景报送版块','应用场景建设区域','应用场景项目名称','应用场景搭建单位','项目起止日期','项目投资额（万元）','应用场景概述','欢迎合作的方向','联系人','联系方式'])
     datas = []
     for file in file_list:
-        data = pd.read_excel(file)
+        data = pd.read_excel(file, header=None)
+        if data.loc[0][0] == '2021年二季度应用场景清单':
+            data = data.drop(0, axis=0)
         datas.append(data)
-    print(datas)
+    # print(datas)
     df = pd.concat(datas, ignore_index=True)
-    df.to_excel("C:\\Users\\zhongbiao\\Desktop\\新建文件夹\\合并.xlsx")
+    df.columns = ['序号','应用场景所属类别','具体细分领域','所属产业领域','应用场景报送版块','应用场景建设区域','应用场景项目名称','应用场景搭建单位','项目起止日期','项目投资额（万元）','应用场景概述','欢迎合作的方向','联系人','联系方式']
+    df = df.drop(df[df['序号'] == '序\n号'].index, axis=0)
+
+    df.to_excel("D:\\mydata\\南京场景收\\合并1.xlsx")
 
 
 # ------------------------------------------------------------
@@ -110,7 +115,8 @@ if __name__ == '__main__':
     #     path = input('输入需要拆分的PDF文件名字，包括后缀，例如 XXX.pdf，回车确认\n')
     #     split_pdf(path)
     #     input('拆分完毕，回车退出')
-    path = "C:\\Users\\zhongbiao\\Desktop\\新建文件夹\\图片转文件"
+
+    path = r"D:\mydata\南京场景收\图片\文件\101-200"
     file_list = getfilename(path)
     # print(file_list)
     contact_excel(file_list)
