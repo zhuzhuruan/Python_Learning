@@ -51,8 +51,10 @@
                 salaries = {'Mary':3000, 'Tom':5060, 'Jack':10000, 'Lily':2490}
                 max_p = max(salaries, key=lambda key:salaries[key])
                 print(max_p)
+                
                 salaries_sort_key = sorted(salaries, key=lambda key:salaries[key])
                 print(salaries_sort_key)
+                
                 salaries_sort = sorted(salaries.items(), key=lambda item:item[1])
                 print(salaries_sort)
 
@@ -117,5 +119,3 @@
 
       
 """
-
-
