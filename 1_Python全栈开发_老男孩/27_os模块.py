@@ -40,6 +40,8 @@
 """
 
 import os
-res = os.listdir(r'D:\Python_Project\1_Python全栈开发_老男孩')
-print(res)
-print(__file__)
+path = 'D:\\CYY_GIT\\Python_Project\\1_Python全栈开发_老男孩'
+for file_path, dir_names, file_names in os.walk(path):
+    for file in file_names:
+        file_name = os.path.join(file_path, file)
+        print(file_name)
