@@ -1,0 +1,216 @@
+-----
+df_initial.columns = ['订单编号', '库存代码', '描述', '数量', '订单日期', '单价', '客户ID', '国家']
+-----
+df_initial.head()
+-----
+# 提供有关列类型和空值数量的一些信息
+tab_info=pd.DataFrame(df_initial.dtypes).T.rename(index={0:'字段类型'})
+tab_info=tab_info.append(pd.DataFrame(df_initial.isnull().sum()).T.rename(index={0:'空值量(nb)'}))
+tab_info=tab_info.append(pd.DataFrame(df_initial.isnull().sum()/df_initial.shape[0]*100).T.
+                         rename(index={0:'空值率(%)'}))
+print ('-' * 10 + " 显示有关列类型和空值数量的信息 " + '-' * 10 )
+print 
+display(tab_info)
+-----
+df_initial.dropna(axis = 0, subset = ['客户ID'], inplace = True)
+print('Dataframe维度:', df_initial.shape)
+# 提供有关列类型和空值数量的一些信息
+tab_info=pd.DataFrame(df_initial.dtypes).T.rename(index={0:'字段类型'})
+tab_info=tab_info.append(pd.DataFrame(df_initial.isnull().sum()).T.rename(index={0:'空值量(nb)'}))
+tab_info=tab_info.append(pd.DataFrame(df_initial.isnull().sum()/df_initial.shape[0]*100).T.
+                         rename(index={0:'空值率(%)'}))
+display(tab_info)
+-----
+print('重复的数据条目: {}'.format(df_initial.duplicated().sum()))
+df_initial.drop_duplicates(inplace = True)
+-----
+temp = df_initial[['客户ID','订单编号', '国家']].groupby(
+    ['客户ID','订单编号', '国家']).count()
+temp = temp.reset_index(drop = False)
+countries = temp['国家'].value_counts()
+print('表中国家数量: {}'.format(len(countries)))
+-----
+import plotly.graph_objs as go
+import plotly.express as px
+fig = go.Figure()
+fig.add_trace(go.Bar(
+    x=countries.index,
+    y=countries.values,
+    name='按国家记录数',
+    marker_color='#4682B4',
+    textposition='outside',
+    text=countries.values,
+))
+
+fig.update_traces(texttemplate='%{text}',
+                  marker_line_color='rgb(8,48,107)',
+                  marker_line_width=1.5, opacity=0.6)
+fig.update_layout(
+    template='ggplot2',
+    font=dict(
+        size=12,
+        color="Black",
+    ),
+    xaxis=dict(showgrid=False),
+    yaxis=dict(showgrid=False),
+    plot_bgcolor="#fafafa"
+)
+fig.show()
+-----
+temp_no_of_order_per_count = df_initial[['客户ID', '国家']].groupby(['国家']).count()
+temp_no_of_order_per_count = temp_no_of_order_per_count.reset_index(drop = False)
+
+print('-' * 10 + " 按国家订单量计算并排序 "+ '-' * 10)
+print
+print(temp_no_of_order_per_count.sort_values(
+    by='客户ID', ascending=False).rename(index=str,
+                                        columns={'客户ID': "国家订单量"}))
+-----
+df_c = temp_no_of_order_per_count.sort_values(by='客户ID', ascending=False
+                                             ).rename(index=str, columns={'客户ID': "国家订单量"})
+df_c.head()
+-----
+# colors = ['gold', 'mediumturquoise', 'darkorange', 'lightgreen', 'SkyBlue','LimeGreen','pink','lightgray']
+fig=go.Figure()
+fig.add_trace(go.Bar(
+    x=df_c['国家'],
+    y=df_c['国家订单量'],
+    name='国家订单量',
+    marker_color='#4682B4',
+    textposition='outside',
+    text=df_c.国家订单量.values,
+#     textangle = 30,
+))
+
+fig.update_traces(texttemplate='%{text}', 
+#                   marker_color=colors, 
+                  marker_line_color='rgb(8,48,107)',
+                  marker_line_width=1.5, opacity=0.6)
+fig.update_layout(
+#     title='国家订单量',
+#     xaxis_title="城市",
+#     yaxis_title="薪资(元)",
+    template='ggplot2',
+    font=dict(
+        size=12,
+        color="Black",
+        
+    ),
+    xaxis=dict(showgrid=False),
+    yaxis=dict(showgrid=False),
+    plot_bgcolor="#fafafa"
+)
+
+fig.show()
+
+-----
+pd.DataFrame([{'产品': len(df_initial['库存代码'].value_counts()),    
+               '交易': len(df_initial['订单编号'].value_counts()),
+               '客户': len(df_initial['客户ID'].value_counts()),  
+              }], columns = ['产品', '交易', '客户'], 
+              index = ['数量'])
+-----
+temp = df_initial.groupby(by=['客户ID', '订单编号'],
+                          as_index=False)['订单日期'].count()
+nb_products_per_basket = temp.rename(columns = {'订单日期':'产品数量'})
+nb_products_per_basket['客户ID'] = nb_products_per_basket['客户ID'].map(lambda x:int(x))
+nb_products_per_basket[:10].sort_values('客户ID')
+-----
+nb_products_per_basket.sample(5)
+-----
+nb_products_per_basket['取消订单量'] = nb_products_per_basket['订单编号'].apply(
+    lambda x:int('C' in x))
+display(nb_products_per_basket.query("取消订单量 != 0")[:5])
+
+n1 = nb_products_per_basket['取消订单量'].sum()
+n2 = nb_products_per_basket.shape[0]
+percentage = (n1/n2)*100
+print('取消订单数量: {}/{} ({:.2f}%) '.format(n1, n2, percentage))
+-----
+display(df_initial.sort_values('客户ID').sample(5))
+-----
+display(df_initial.sort_values('客户ID').query("订单编号 in ['579178', 'C579178']"))
+-----
+df_initial[df_initial['客户ID'] == 12830]
+-----
+df_check = df_initial[df_initial['数量'] < 0][['客户ID','数量', '库存代码','描述','单价']]
+for index, col in  df_check.iterrows():
+    if df_initial[(df_initial['客户ID'] == col[0]) & (df_initial['数量'] == -col[1]) 
+                & (df_initial['描述'] == col[2])].shape[0] == 0: 
+        print(df_check.loc[index])
+        print(25*'-'+'>'+' 假设未完成')
+        break
+-----
+df_cleaned = df_initial.copy(deep = True)
+df_cleaned['取消订单数量'] = 0
+
+entry_to_remove = [] ; doubtfull_entry = []
+
+for index, col in  df_initial.iterrows():
+    if (col['数量'] > 0) or col['描述'] == 'Discount': continue        
+    df_test = df_initial[(df_initial['客户ID'] == col['客户ID']) &
+                         (df_initial['库存代码']  == col['库存代码']) & 
+                         (df_initial['订单日期'] < col['订单日期']) & 
+                         (df_initial['数量']   > 0)].copy()
+
+    # 没有对应项的取消订单
+    if (df_test.shape[0] == 0): 
+        doubtfull_entry.append(index)
+   
+    # 有对应项的取消订单
+    elif (df_test.shape[0] == 1): 
+        index_order = df_test.index[0]
+        df_cleaned.loc[index_order, '取消订单数量'] = -col['数量']
+        entry_to_remove.append(index)        
+   
+    # 不同的对应项是按顺序存在的:我们删除最后一个
+    elif (df_test.shape[0] > 1): 
+        df_test.sort_index(axis=0 ,ascending=False, inplace = True)        
+        for ind, val in df_test.iterrows():
+            if val['数量'] < -col['数量']: continue
+            df_cleaned.loc[ind, '取消订单数量'] = -col['数量']
+            entry_to_remove.append(index) 
+            break      
+            
+print("entry_to_remove: {}".format(len(entry_to_remove)))
+print("doubtfull_entry: {}".format(len(doubtfull_entry)))
+-----
+df_cleaned.drop(entry_to_remove, axis = 0, inplace = True)
+df_cleaned.drop(doubtfull_entry, axis = 0, inplace = True)
+remaining_entries = df_cleaned[(df_cleaned['数量'] < 0) & (df_cleaned['库存代码'] != 'D')]
+print("要删除的记录数量: {}".format(remaining_entries.shape[0]))
+remaining_entries[:5]
+-----
+df_cleaned[(df_cleaned['客户ID'] == 14048) & (df_cleaned['库存代码'] == '22464')]
+-----
+list_special_codes = df_cleaned[df_cleaned['库存代码'].str.contains('^[a-zA-Z]+', regex=True)]['库存代码'].unique()
+list_special_codes
+-----
+df_cleaned['总价'] = df_cleaned['单价'] * (df_cleaned['数量'] - df_cleaned['取消订单数量'])
+df_cleaned.sort_values('客户ID')[:5]
+-----
+temp = df_cleaned.groupby(by=['客户ID', '订单编号'], as_index=False)['总价'].sum()
+basket_price = temp.rename(columns = {'总价':'购物车价格'})
+-----
+# Purchase count
+price_range = [0, 50, 100, 200, 500, 1000, 5000, 50000]
+count_price = []
+for i, price in enumerate(price_range):
+    if i == 0: continue
+    val = basket_price[(basket_price['购物车价格'] < price) &
+                       (basket_price['购物车价格'] > price_range[i-1])]['购物车价格'].count()
+    count_price.append(val)
+
+# Representation of the number of purchases / amount       
+plt.rc('font', weight='bold')
+f, ax = plt.subplots(figsize=(11, 6))
+colors = ['yellowgreen', 'gold', 'wheat', 'c', 'violet', 'royalblue','firebrick']
+labels = [ '{}<.<{}'.format(price_range[i-1], s) for i,s in enumerate(price_range) if i != 0]
+sizes  = count_price
+explode = [0.0 if sizes[i] < 100 else 0.0 for i in range(len(sizes))]
+ax.pie(sizes, explode = explode, labels=labels, colors = colors,
+       autopct = lambda x:'{:1.0f}%'.format(x) if x > 1 else '',
+       shadow = False, startangle=0)
+ax.axis('equal')
+f.text(0.5, 1.01, "Distribution of order amounts", ha='center', fontsize = 18);
+-----

@@ -1,0 +1,50 @@
+-----
+data = pd.read_table('userlostprob.txt')
+-----
+data.head()
+-----
+data.tail()
+-----
+data.sample(5)
+-----
+data.shape
+-----
+data.dtypes
+-----
+data.info()
+-----
+# 列索引
+data.columns
+# 数据大小
+data.size
+-----
+data.describe()
+-----
+data.mean(axis='columns')
+-----
+data.drop_duplicates(inplace=True)
+data.shape
+-----
+null_ = data.isna().mean().reset_index().sort_values(by=0)
+null_1 = null_.rename(columns={'index':'特征',0:'缺失比'}).reset_index(drop=True)
+-----
+plt.figure(figsize=(8,6))
+sns.kdeplot(null_1['缺失比'],shade=True)
+-----
+plt.figure(figsize=(8,6))
+plt.barh(range(null_1.shape[0]),null_1['缺失比'],label='缺失比')
+plt.legend(loc=4)
+plt.ylabel('特征变量',fontsize=15);
+-----
+null_.rename(columns={'index':'特征',0:'缺失比'}).set_index('特征')
+-----
+data = data.drop(columns = ['historyvisit_7ordernum'])
+-----
+无
+-----
+Xtrain,Xtest,Ytrain,Ytest = train_test_split(X,y,test_size=0.3,random_state=666)
+-----
+无
+-----
+无
+-----
