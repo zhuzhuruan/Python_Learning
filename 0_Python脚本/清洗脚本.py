@@ -3,7 +3,7 @@
 import pandas as pd
 import regex
 import pymysql
-
+import os
 
 def read_data(path, sheet_name='Sheet1'):
     data = pd.read_excel(path, sheet_name=sheet_name, header=None)
@@ -59,10 +59,23 @@ def insert(data):
     conn.close()
 
 
+def yuqing_data():
+    data_lst = []
+    file_names = os.listdir("D:/mydata/2-社情民意/2019")
+    for file in file_names:
+        path = os.path.join("D:\\mydata\\2-社情民意\\2019", file)
+        data = pd.read_excel(path)
+        data_lst.append(data)
+
+    df = pd.concat(data_lst)
+    # df.to_excel("D:\\mydata\\2-社情民意\\2019\\合并版本.xlsx")
+    print(df.shape[0])
+
 
 
 if __name__ == '__main__':
-    path = r'D:\mydata\16_综管中心第六版修改\测试0916.xlsx'
-    data = read_data(path)
-    result = clean_data(data)
-    insert(result)
+    # path = r'D:\mydata\16_综管中心第六版修改\测试0916.xlsx'
+    # data = read_data(path)
+    # result = clean_data(data)
+    # insert(result)
+    yuqing_data()
