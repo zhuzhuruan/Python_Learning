@@ -79,3 +79,5 @@ if __name__ == '__main__':
     # result = clean_data(data)
     # insert(result)
     yuqing_data()
+
+
