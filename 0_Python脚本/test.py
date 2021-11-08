@@ -37,4 +37,5 @@ df_col4 = df.loc[:, ["positionId","companyId"]]
 df_col5 = df.iloc[:, 0:3]
 df_col6= df.iloc[:, [0, 3, 6]]
 
-print(df_row5)
+# print(df_row5)
+

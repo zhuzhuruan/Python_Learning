@@ -73,11 +73,21 @@ def yuqing_data():
 
 
 
+def split_excel():
+    df = pd.read_excel(r'D:\mydata\7-中山医院\中山数据导入\国家标准知识库\药物1.xlsx')
+    # print(df.head(5))
+    i = 0
+    while i <= 4000:
+        data = df.loc[i:i+999]
+        data.to_excel(f'D:\\mydata\\7-中山医院\\中山数据导入\\国家标准知识库\\药物1{i}.xls', index=False)
+        i += 1000
+
+
 if __name__ == '__main__':
     # path = r'D:\mydata\16_综管中心第六版修改\测试0916.xlsx'
     # data = read_data(path)
     # result = clean_data(data)
     # insert(result)
-    yuqing_data()
-
+    # yuqing_data()
+    split_excel()
 
