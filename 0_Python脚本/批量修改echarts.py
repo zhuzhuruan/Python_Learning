@@ -29,9 +29,9 @@ def read_data(path, district, sheet_name='Sheet1'):
     print(var_tips)
     print(var_legend)
     print(color)
-    print('总量: ' + str(num))
+    print('总量: ' + str(round(num,2)))
 
-    return var_data, var_tips, var_legend, color, '总量: ' + str(num), type_count
+    return var_data, var_tips, var_legend, color, '总量: ' + str(round(num,2)), type_count
 
 
 def read_file(path, result, district):

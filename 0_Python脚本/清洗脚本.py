@@ -44,8 +44,9 @@ def clean_data(data):
     return company_lst
 
 
+
 def insert(data):
-    conn = pymysql.connect(host="152.136.28.36", user="datauser", passwd="ZB_datauser", db="shjjw", charset='utf8',
+    conn = pymysql.connect(host="172.21.0.18", user="datauser", passwd="ZB_datauser", db="shjjw", charset='utf8',
                            cursorclass=pymysql.cursors.DictCursor)
     cursor = conn.cursor()
     insert_sql = '''insert into zgzx_jkx_problem_2021(date_range, build_company, build_type, district, road_name, problem_type) 
@@ -57,6 +58,7 @@ def insert(data):
 
     cursor.close()
     conn.close()
+
 
 
 def yuqing_data():
@@ -84,12 +86,11 @@ def split_excel():
 
 
 
-
 if __name__ == '__main__':
-    # path = r'D:\mydata\16_综管中心第六版修改\测试0916.xlsx'
-    # data = read_data(path)
-    # result = clean_data(data)
-    # insert(result)
-    # yuqing_data()
-    split_excel()
-
+    path = r'D:\mydata\16_综管中心第六版修改\测试1203_2.xlsx'
+    data = read_data(path)
+    result = clean_data(data)
+    insert(result)
+    # # yuqing_data()
+    # split_excel()
+    #
