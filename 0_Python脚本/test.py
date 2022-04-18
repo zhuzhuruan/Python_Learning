@@ -200,9 +200,9 @@ def test4(flags):
 
 
 def test5():
-    pattern = regex.compile(
-        r'(?<=[\u4e00-\u9fa5]|\s{0,4}|\-\－)(?:[AB][34])(?=[\u4e00-\u9fa5]|\s{0,4})|[0-9]+(?:[MmCc][Mm]|[Kk]?[Gg])|[-－]')
-    print(regex.findall(pattern, '中文30593-A4 20cm -'))
+    pattern = re.compile(r'[0-9]+[\u4e00-\u9fa5()（）]{0,4}[\-\－][0-9]+')
+    x = re.findall(pattern, '1张(含)-500张含')
+    print(x)
 
 
 
