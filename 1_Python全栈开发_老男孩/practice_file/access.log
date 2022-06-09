@@ -1,0 +1,6 @@
+2021-08-25 16:50:24 PM - root - WARNING -33_日志:  警告warn
+2021-08-25 16:50:24 PM - root - ERROR -33_日志:  错误error
+2021-08-25 16:50:24 PM - root - CRITICAL -33_日志:  严重critical
+2021-08-25 16:51:43 PM - root - WARNING -33_日志:  警告warn
+2021-08-25 16:51:43 PM - root - ERROR -33_日志:  错误error
+2021-08-25 16:51:43 PM - root - CRITICAL -33_日志:  严重critical
