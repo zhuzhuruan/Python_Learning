@@ -40,6 +40,7 @@
 """
 
 import os
+
 path = 'D:\\CYY_GIT\\Python_Project\\1_Python全栈开发_老男孩'
 for file_path, dir_names, file_names in os.walk(path):
     for file in file_names:

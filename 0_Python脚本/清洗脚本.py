@@ -5,6 +5,7 @@ import regex
 import pymysql
 import os
 
+
 def read_data(path, sheet_name='Sheet1'):
     data = pd.read_excel(path, sheet_name=sheet_name, header=None)
     return data
@@ -23,26 +24,27 @@ def clean_data(data):
     for index in range(0, len(row_list)):
         # row_list[0]=2, row_list[1]=10, row_list[2]=19, row_list[3]=28, row_list[4]=37,
         if row_list[index] < row_list[-1]:
-            print(row_list[index]+1, row_list[index+1])
+            print(row_list[index] + 1, row_list[index + 1])
 
-            for i in range(row_list[index]+1, row_list[index+1]-2):
+            for i in range(row_list[index] + 1, row_list[index + 1] - 2):
                 for j in data.columns:
                     if j != 0 and data.loc[i][j] != '/' and j != data.columns.size - 1:
                         problem_type = data.loc[i][j]
                         date_range = data.loc[row_list[index]][data.columns.size - 1]
                         build_company = data.loc[row_list[index]][j]
-                        road_name = data.loc[row_list[index] - 1][j].replace('（','(').replace('）',')')
+                        road_name = data.loc[row_list[index] - 1][j].replace('（', '(').replace('）', ')')
                         district = data.loc[row_list[index] - 2][j]
-                        if regex.search('(?<=\)).*',road_name):
-                            build_type = regex.search('(?<=\)).*',road_name).group(0)
+                        if regex.search('(?<=\)).*', road_name):
+                            build_type = regex.search('(?<=\)).*', road_name).group(0)
                         else:
                             build_type = None
                             print(road_name)
-                        company_dict = {'date_range':date_range, 'build_company':build_company, 'build_type':build_type, 'district':district, 'road_name':road_name, 'problem_type':problem_type}
+                        company_dict = {'date_range': date_range, 'build_company': build_company,
+                                        'build_type': build_type, 'district': district, 'road_name': road_name,
+                                        'problem_type': problem_type}
                         # print(company_dict)
                         company_lst.append(company_dict)
     return company_lst
-
 
 
 def insert(data):
@@ -60,7 +62,6 @@ def insert(data):
     conn.close()
 
 
-
 def yuqing_data():
     data_lst = []
     file_names = os.listdir("D:/mydata/2-社情民意/2019")
@@ -74,16 +75,14 @@ def yuqing_data():
     print(df.shape[0])
 
 
-
 def split_excel():
     df = pd.read_excel(r'D:\mydata\7-中山医院\中山数据导入\国家标准知识库\药物1.xlsx')
     # print(df.head(5))
     i = 0
     while i <= 4000:
-        data = df.loc[i:i+999]
+        data = df.loc[i:i + 999]
         data.to_excel(f'D:\\mydata\\7-中山医院\\中山数据导入\\国家标准知识库\\药物1{i}.xls', index=False)
         i += 1000
-
 
 
 if __name__ == '__main__':

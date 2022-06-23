@@ -2,7 +2,7 @@
 import time
 
 import pandas as pd
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import numpy as np
 from pandas import Series
 import json
@@ -65,13 +65,14 @@ import regex
 r = "\d+\.?\d+[/*~_－]?[/-]?\d+\.?\d+mm"
 import re
 
-
 RE_RGB_PATTERN = re.compile(r"\d+\.?\d{0,3}(?:mm)?[/*~_－]?[/-]?\d{0,3}(?:\.\d+)?mm", re.IGNORECASE)
 RE_RGB_PATTERN1 = re.compile(r"\d+(?:\.\d+)?(?:mm)?", re.IGNORECASE)
 
 
 def test():
-    content = ["6mm","0.5mm/12mm","0.5*0.38mm","0.5-0.38mm","0.5－0.38mm","0.5/0.38mm","28-40mm","26.65mm","0.5mm/0.38mm","28-40mm","0.5*0.38mm","0.5-0.38mm","0.5/0.38mm","0.5－0.38mm","28mm","0.5mm/0.38mm","0.05mm","0.28mm","K35/0.5mm"]
+    content = ["6mm", "0.5mm/12mm", "0.5*0.38mm", "0.5-0.38mm", "0.5－0.38mm", "0.5/0.38mm", "28-40mm", "26.65mm",
+               "0.5mm/0.38mm", "28-40mm", "0.5*0.38mm", "0.5-0.38mm", "0.5/0.38mm", "0.5－0.38mm", "28mm",
+               "0.5mm/0.38mm", "0.05mm", "0.28mm", "K35/0.5mm"]
     for i in content:
         _nips = RE_RGB_PATTERN.findall(i)
         print(i, _nips)
@@ -82,8 +83,9 @@ def test():
         #         v = RE_RGB_PATTERN1.findall(j)
         #         print(j, v)
 
+
 def test2():
-    page_dict = {6:700, 2:700, 4:400, 8:400, 10:100}
+    page_dict = {6: 700, 2: 700, 4: 400, 8: 400, 10: 100}
     value_lst = [value for value in page_dict.values()]
     same_value = list(set([i for i in value_lst if value_lst.count(i) > 1]))
 
@@ -140,6 +142,7 @@ def test3():
     params_mapping = json.loads(s)
     print(type(params_mapping))
 
+
 def data_process(start, end):
     ...
 
@@ -159,9 +162,11 @@ def run(start_cnt, run_max):
 def get_time():
     print(time.time())
 
+
 def get_strf_time():
     start = time.localtime()
     print(time.strftime('%Y-%m-%d %H:%M:%S', start))
+
 
 def test_run(**kwargs):
     # get_time(1)
@@ -183,7 +188,7 @@ def transNum(num):
 
 
 def test4(flags):
-    if flags == 4 :
+    if flags == 4:
         pattern_model = re.compile(r'([a-zA-Z][a-zA-Z0-9\-\－\s]*[0-9]+[a-zA-Z0-9\－\-\s]*[a-zA-Z0-9]*)')
     else:
         pattern_model = re.compile(r'([a-zA-Z0-9][a-zA-Z0-9\-\－]*[0-9]+[a-zA-Z0-9\－\-]*[a-zA-Z0-9]*)')
@@ -205,7 +210,6 @@ def test5():
     print(x)
 
 
-
 if __name__ == '__main__':
     # test_run(get_time=get_time, get_strf_time=get_strf_time)
     # num = input("请输入阿拉伯数字：")
@@ -213,6 +217,4 @@ if __name__ == '__main__':
     # test4(6)
 
     test5()
-
-
 
