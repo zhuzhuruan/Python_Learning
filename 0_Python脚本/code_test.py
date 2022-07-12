@@ -1,12 +1,14 @@
 # -*- coding:utf-8 -*-
 import time
-
 import pandas as pd
 # import matplotlib.pyplot as plt
 import numpy as np
 from pandas import Series
 import json
-import regex
+import re
+import pytest
+
+# import regex
 
 # data1 = pd.read_csv("./file/某招聘网站数据.csv", skiprows = lambda x : x !=0 and not x % 2 )
 # data2 = pd.read_csv("./file/某招聘网站数据.csv", usecols = [0])
@@ -22,7 +24,8 @@ import regex
 #
 # df = pd.read_csv("./file/某招聘网站数据.csv")
 #
-# # df = df.head(10)
+# df = df.head(10)
+# print(df)
 #
 # # 筛选行
 # df_row1 = df[1:5]           # 1,2,3,4
@@ -63,13 +66,12 @@ import regex
 # print(res)
 
 r = "\d+\.?\d+[/*~_－]?[/-]?\d+\.?\d+mm"
-import re
 
 RE_RGB_PATTERN = re.compile(r"\d+\.?\d{0,3}(?:mm)?[/*~_－]?[/-]?\d{0,3}(?:\.\d+)?mm", re.IGNORECASE)
 RE_RGB_PATTERN1 = re.compile(r"\d+(?:\.\d+)?(?:mm)?", re.IGNORECASE)
 
 
-def test():
+def test0():
     content = ["6mm", "0.5mm/12mm", "0.5*0.38mm", "0.5-0.38mm", "0.5－0.38mm", "0.5/0.38mm", "28-40mm", "26.65mm",
                "0.5mm/0.38mm", "28-40mm", "0.5*0.38mm", "0.5-0.38mm", "0.5/0.38mm", "0.5－0.38mm", "28mm",
                "0.5mm/0.38mm", "0.05mm", "0.28mm", "K35/0.5mm"]
@@ -211,10 +213,9 @@ def test5():
 
 
 if __name__ == '__main__':
-    # test_run(get_time=get_time, get_strf_time=get_strf_time)
-    # num = input("请输入阿拉伯数字：")
-    # transNum(num)
-    # test4(6)
-
+    #     # test_run(get_time=get_time, get_strf_time=get_strf_time)
+    #     # num = input("请输入阿拉伯数字：")
+    #     # transNum(num)
+    #     # test4(6)
+    #
     test5()
-

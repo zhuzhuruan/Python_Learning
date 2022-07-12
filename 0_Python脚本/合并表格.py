@@ -3,9 +3,28 @@ import os
 import openpyxl
 
 
-def read_data(path):
-    data = pd.read_excel(path)
+def read_data(path, mode):
+    """
+
+    :param path:
+    :param mode:
+    :return:
+    """
+    data = None
+    if mode == '1':
+        data = pd.read_excel(path)
+    elif mode == '2':
+        data = pd.read_csv(path, encoding='utf-8')
     return data
+
+
+def output_data(path, data):
+    """
+    输出txt
+    """
+    with open(path, 'a+', encoding='utf-8') as f:
+        for line in data.values:
+            f.write((str(line[0]) + '\t' + str(line[1]) + '\n'))
 
 
 def concat_data(path_list):
@@ -79,29 +98,16 @@ def split_excel_to_sheet():
 
 
 if __name__ == '__main__':
-    # path_list = [r'C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\第九批_1.xlsx',
-    #              r'C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\第九批_2.xlsx',
-    #              r'C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\第九批_3.xlsx']
-    # df = concat_data(path_list)
-    # # df.to_excel(r'C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\第九批.xlsx')
-    # df.to_csv(r'C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\第九批.txt', sep='\t', index=False, header=None)
-    # # split_excel(df, 3)
-
 
     #  测试拆分一个excel到多个sheet
     # print(os.getcwd())
     # split_excel_to_sheet()
 
-    path = r'C:\Users\caoyuanyuan\Desktop\项目文档\3-企业站点补数\0621\分批合并'
+    path = r'C:\Users\caoyuanyuan\Desktop\项目文档\3-企业站点补数\0627\分批合并'
     path_list = []
     for file_path, dir_name, file_names in os.walk(path):
         for file in file_names:
             file_name = os.path.join(file_path, file)
             path_list.append(file_name)
     df = concat_data(path_list)
-    df.to_excel(r'C:\Users\caoyuanyuan\Desktop\项目文档\3-企业站点补数\0621\线下0621企业站点补数结果.xlsx')
-
-
-
-
-
+    df.to_excel(r'C:\Users\caoyuanyuan\Desktop\项目文档\3-企业站点补数\0627\线下0627企业站点补数结果.xlsx')
