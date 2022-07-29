@@ -41,11 +41,9 @@ def seg(pinyin):
 
 
 if __name__ == '__main__':
-    a = seg('xinge')
+    a = seg('pini')
     print(a)
 
     # a = True
     # if not a:
     #     print("OK")
-
-
