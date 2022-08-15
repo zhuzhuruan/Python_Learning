@@ -119,3 +119,18 @@
 
       
 """
+from functools import reduce
+res = reduce(lambda x,y:x*y, range(1,21))
+resn = reduce(lambda x,y:x*y, range(1,17))
+x = 0.2**4
+y = 0.8**16
+
+print(res, resn)
+print(x*y*(res/(24*resn)))
+
+
+
+
+
+
+
