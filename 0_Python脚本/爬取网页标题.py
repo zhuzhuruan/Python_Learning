@@ -100,6 +100,7 @@ if __name__ == '__main__':
     path = r"C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\不同行业wifi分拣\test.xlsx"
     data = read_data(path, sheet_name="Sheet1")
     get_data_url(data)
+
     # print(data.head(100))
 
     # s = re.split("[-_—]|[ %:!！@#\$\^&\*()（），,<>\.\+\?\|]", re.sub("[—_-](?:5|2.4)[Gg]", "", "-Y5ZONE-"))
