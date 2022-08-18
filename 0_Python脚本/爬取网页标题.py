@@ -4,12 +4,6 @@
 # @File : 爬取网页标题.py
 # @desc :
 
-
-# -*- coding: utf-8 -*-
-# @Time : 2022/8/1615:59
-# @Author : cyy
-# @File : 爬取网页标题.py
-# @desc :
 import string
 import urllib.parse
 from urllib.request import urlopen
@@ -42,6 +36,8 @@ def get_links(url):
     headers = {"User-Agent": random_agent,
                "Agent": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
                }
+    # 将中文字符转换
+    url = urllib.parse.quote(url, safe=string.printable)
     req = request.Request(url, headers=headers)
     try:
         time.sleep(random.randint(5, 15))
@@ -61,9 +57,9 @@ def get_links(url):
             _dict = {"title": title, "href": href}
             if re.search('公司|企业|集团', title):
                 title_list.append(_dict)
+                return title_list
     except AttributeError as e:
         return None
-    return title_list
 
 
 def clean_data(data):
@@ -84,30 +80,22 @@ def get_data_url(data):
     data["url"] = None
     data["title"] = None
     for i in data.index:
-        if i <= 10000:
-            if data.loc[i, "ssid_clean"] is not None:
-                data.loc[i, "url"] = "https://www.baidu.com/s?wd=" + data.loc[i, "ssid_clean"]
-                # 将中文字符转义
-                url = urllib.parse.quote(data.loc[i, "url"], safe=string.printable)
-                title_list = get_links(url)  # data.loc[i, "url"]
-                if title_list:
-                    data.loc[i, "title"] = str([i.get("title") for i in title_list])
-                    print(i, data.loc[i, "title"], data.loc[i, "ssid_clean"])
-    data.to_excel(r'C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\不同行业wifi分拣\test结果.xlsx')
+        # if i <= 10:
+        if data.loc[i, "ssid_clean"] is not None:
+            data.loc[i, "url"] = "https://www.baidu.com/s?wd=" + data.loc[i, "ssid_clean"]
+            title_list = get_links(data.loc[i, "url"])  # data.loc[i, "url"]
+            if title_list:
+                data.loc[i, "title"] = str([i.get("title") for i in title_list])
+                print(i, data.loc[i, "title"], data.loc[i, "ssid_clean"])
+    data.to_excel(r'C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\不同行业wifi分拣\test结果1.xlsx')
 
 
 if __name__ == '__main__':
     path = r"C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\不同行业wifi分拣\test.xlsx"
     data = read_data(path, sheet_name="Sheet1")
-    get_data_url(data)
-
+    # get_data_url(data)
     # print(data.head(100))
 
-    # s = re.split("[-_—]|[ %:!！@#\$\^&\*()（），,<>\.\+\?\|]", re.sub("[—_-](?:5|2.4)[Gg]", "", "-Y5ZONE-"))
-    # print(re.split("[-_—]|[ %:!！@#\$\^&\*()（），,<>\.\+\?\|]", "-Y5-ZONE-"))
-    # print(s)
-    # mylist = ["as", "dwrt", "gerth"]
-    # mylist.sort(key=lambda x: len(x), reverse=False)
-    # print(mylist)
-
-    # get_links("https://www.baidu.com/s?wd=cdyh")
+    # 单个测试
+    res = get_links("https://www.baidu.com/s?wd=SHAREit")
+    print(res)
