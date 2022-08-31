@@ -46,6 +46,7 @@ def get_links(url):
         return None
     try:
         bs0bj = BeautifulSoup(html)
+        # print(bs0bj)
         # 标题储存在h3标签下
         title_list = []
         for link in bs0bj.findAll("h3"):
@@ -57,13 +58,14 @@ def get_links(url):
             _dict = {"title": title, "href": href}
             if re.search('公司|企业|集团', title):
                 title_list.append(_dict)
-                return title_list
+        return title_list
     except AttributeError as e:
         return None
 
 
 def clean_data(data):
-    if re.search('[\u4e00-\u9fa5]', data) or re.search('[a-zA-Z]', data):
+    # print(data)
+    if re.search('[\u4e00-\u9fa5]|[a-zA-Z]', data) and len(re.sub('[0-9]|[(（）),，.?]|[—_-]5[Gg]', '', data)) > 2:
         data_split = re.split("[-_—]|[ %:!！@#\$\^&\*()（），,<>\.\+\?\|]", re.sub("[—_-](?:5|2.4)[Gg]", "", data))
         data_clean = [i for i in data_split if re.search('[\u4e00-\u9fa5]', data) or re.search('[a-zA-Z]', i)]
         if not data_clean:
@@ -80,22 +82,26 @@ def get_data_url(data):
     data["url"] = None
     data["title"] = None
     for i in data.index:
-        # if i <= 10:
-        if data.loc[i, "ssid_clean"] is not None:
-            data.loc[i, "url"] = "https://www.baidu.com/s?wd=" + data.loc[i, "ssid_clean"]
-            title_list = get_links(data.loc[i, "url"])  # data.loc[i, "url"]
-            if title_list:
-                data.loc[i, "title"] = str([i.get("title") for i in title_list])
-                print(i, data.loc[i, "title"], data.loc[i, "ssid_clean"])
+        print(i, data.loc[i, "ssid_clean"])
+        if i > 600:
+            if data.loc[i, "ssid_clean"] is not None:
+                data.loc[i, "url"] = "https://www.baidu.com/s?wd=" + data.loc[i, "ssid_clean"]
+                title_list = get_links(data.loc[i, "url"])  # data.loc[i, "url"]
+                if title_list:
+                    data.loc[i, "title"] = str([i.get("title") for i in title_list])
+                    print(i, data.loc[i, "title"], data.loc[i, "ssid_clean"])
     data.to_excel(r'C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\不同行业wifi分拣\test结果1.xlsx')
 
 
 if __name__ == '__main__':
     path = r"C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\不同行业wifi分拣\test.xlsx"
     data = read_data(path, sheet_name="Sheet1")
-    # get_data_url(data)
     # print(data.head(100))
+    get_data_url(data)
 
     # 单个测试
-    res = get_links("https://www.baidu.com/s?wd=SHAREit")
-    print(res)
+    # res = get_links("https://www.baidu.com/s?wd=Thaiwoo")
+    # print(res)
+
+    # res = re.sub('[0-9]|[(（）),，.?]|[—_-]5[Gg]', '', '1104A')
+    # print(res)
