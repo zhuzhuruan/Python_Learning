@@ -95,13 +95,13 @@ def get_data_url(data):
 
 if __name__ == '__main__':
     path = r"C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\不同行业wifi分拣\test.xlsx"
-    data = read_data(path, sheet_name="Sheet1")
+    # data = read_data(path, sheet_name="Sheet1")
     # print(data.head(100))
-    get_data_url(data)
+    # get_data_url(data)
 
     # 单个测试
-    # res = get_links("https://www.baidu.com/s?wd=Thaiwoo")
-    # print(res)
+    res = get_links("http://www.jsdiawee.cn")
+    print(res)
 
     # res = re.sub('[0-9]|[(（）),，.?]|[—_-]5[Gg]', '', '1104A')
     # print(res)
