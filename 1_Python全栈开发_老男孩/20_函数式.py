@@ -120,7 +120,7 @@
       
 """
 from functools import reduce
-res = reduce(lambda x,y:x*y, range(1,21))
+res = reduce(lambda x,yy:x*y, range(1,21))
 resn = reduce(lambda x,y:x*y, range(1,17))
 x = 0.2**4
 y = 0.8**16
