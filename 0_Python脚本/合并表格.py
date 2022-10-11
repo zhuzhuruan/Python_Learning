@@ -14,7 +14,7 @@ def read_data(path, mode):
     if mode == '1':
         data = pd.read_excel(path)
     elif mode == '2':
-        data = pd.read_csv(path, encoding='utf-8')
+        data = pd.read_csv(path, encoding='utf-8', sep='\t')
     return data
 
 
@@ -60,7 +60,7 @@ def split_excel(df, split_num):
         begin = i * split_size
         end = begin + split_size
         df_sub = df.iloc[begin:end]  # [0,34],[34,68],[68,100]
-        file_name = f'C:\\Users\\caoyuanyuan\\Desktop\\项目文档\\2-企业WiFi库\\test_{i}.xlsx'
+        file_name = f'待分拣数据_{i}.xlsx'
         df_sub.to_excel(file_name)
 
 
@@ -98,16 +98,18 @@ def split_excel_to_sheet():
 
 
 if __name__ == '__main__':
-
     #  测试拆分一个excel到多个sheet
     # print(os.getcwd())
     # split_excel_to_sheet()
 
-    path = r'C:\Users\caoyuanyuan\Desktop\项目文档\3-企业站点补数\0627\分批合并'
-    path_list = []
-    for file_path, dir_name, file_names in os.walk(path):
-        for file in file_names:
-            file_name = os.path.join(file_path, file)
-            path_list.append(file_name)
-    df = concat_data(path_list)
-    df.to_excel(r'C:\Users\caoyuanyuan\Desktop\项目文档\3-企业站点补数\0627\线下0627企业站点补数结果.xlsx')
+    path = ""
+    # path_list = []
+    # for file_path, dir_name, file_names in os.walk(path):
+    #     for file in file_names:
+    #         file_name = os.path.join(file_path, file)
+    #         path_list.append(file_name)
+    # df = concat_data(path_list)
+    # df.to_excel(path)
+    df = read_data(path, '2')
+    # print(df.head())
+    split_excel(df, 5)
