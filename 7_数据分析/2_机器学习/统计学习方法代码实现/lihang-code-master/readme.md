@@ -67,6 +67,9 @@ https://blog.csdn.net/tudaodiaozhale
 
 https://github.com/hktxt/Learn-Statistical-Learning-Method
 
+### 习题在线
+https://datawhalechina.github.io/statistical-learning-method-solutions-manual/#/
+
 代码整理和修改：机器学习初学者（公众号） ![gongzhong](images/gongzhong.jpg)
 
 

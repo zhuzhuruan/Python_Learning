@@ -61,7 +61,7 @@ def split_excel(df, split_num):
         end = begin + split_size
         df_sub = df.iloc[begin:end]  # [0,34],[34,68],[68,100]
         file_name = f'待分拣数据_{i}.xlsx'
-        df_sub.to_excel(file_name)
+        df_sub.to_excel(file_name, engine='xlsxwriter')
 
 
 def split_excel_to_sheet():
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     # print(os.getcwd())
     # split_excel_to_sheet()
 
-    path = ""
+    path = r"C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\企业WiFi库精筛\待分拣数据\待分拣数据_1011\ssid_wait_check_1011.csv"
     # path_list = []
     # for file_path, dir_name, file_names in os.walk(path):
     #     for file in file_names:
