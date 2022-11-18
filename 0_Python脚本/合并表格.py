@@ -1,33 +1,25 @@
+import csv
 import pandas as pd
 import os
 import openpyxl
 
 
 def read_data(path, mode):
-    """
-
-    :param path:
-    :param mode:
-    :return:
-    """
     data = None
     if mode == '1':
         data = pd.read_excel(path)
     elif mode == '2':
-        data = pd.read_csv(path, encoding='utf-8', sep='\t')
+        data = pd.read_csv(path, encoding='utf-8', sep='\t', quoting=csv.QUOTE_NONE)
     return data
 
 
 def output_data(path, data):
-    """
-    输出txt
-    """
     with open(path, 'a+', encoding='utf-8') as f:
         for line in data.values:
             f.write((str(line[0]) + '\t' + str(line[1]) + '\n'))
 
 
-def concat_data(path_list):
+def concat_data(path_list, mode):
     """
     合并表格
     :param path_list:
@@ -35,7 +27,7 @@ def concat_data(path_list):
     """
     list = []
     for path in path_list:
-        data = read_data(path)
+        data = read_data(path, mode)
         list.append(data)
     merge_data = pd.concat(list, axis=0)
     # merge_distinct = merge_data.drop_duplicates(keep='first', inplace=False)
@@ -60,8 +52,8 @@ def split_excel(df, split_num):
         begin = i * split_size
         end = begin + split_size
         df_sub = df.iloc[begin:end]  # [0,34],[34,68],[68,100]
-        file_name = f'待分拣数据_{i}.xlsx'
-        df_sub.to_excel(file_name, engine='xlsxwriter')
+        file_name = f'./file/test_{i}.csv'
+        df_sub.to_csv(file_name)
 
 
 def split_excel_to_sheet():
@@ -85,7 +77,7 @@ def split_excel_to_sheet():
     for myKey, myValue in myDict.items():
         # 创建新工作簿(myNewBook)
         myNewBook = openpyxl.Workbook()
-        myNewSheet = myNewBook.active
+        myNewSheet = myNewBook.actives
         # 在新工作表(myNewSheet)中添加表头(录取院校、专业、考生姓名、总分)
         myNewSheet.append(myRange[2])
         # 在新工作表(myNewSheet)中添加键名(录取院校)下的多个键值(考生)
@@ -98,18 +90,21 @@ def split_excel_to_sheet():
 
 
 if __name__ == '__main__':
+    path = r'./file/test.csv'
+
     #  测试拆分一个excel到多个sheet
     # print(os.getcwd())
     # split_excel_to_sheet()
 
-    path = r"C:\Users\caoyuanyuan\Desktop\项目文档\2-企业WiFi库\企业WiFi库精筛\待分拣数据\待分拣数据_1011\ssid_wait_check_1011.csv"
+    # 精筛结果合并
     # path_list = []
     # for file_path, dir_name, file_names in os.walk(path):
     #     for file in file_names:
     #         file_name = os.path.join(file_path, file)
     #         path_list.append(file_name)
-    # df = concat_data(path_list)
-    # df.to_excel(path)
-    df = read_data(path, '2')
+    # df = concat_data(path_list, '2')
     # print(df.head())
-    split_excel(df, 5)
+
+    # 拆分表格
+    df = read_data(path, '2')
+    split_excel(df, 15)
