@@ -4,6 +4,35 @@ import os
 import openpyxl
 
 
+def get_path_list(path):
+    """
+    多个文件合并时先获取文件列表
+    :return:
+    """
+    path_list = []
+    for file_path, dir_name, file_names in os.walk(path):
+        for file in file_names:
+            file_name = os.path.join(file_path, file)
+            path_list.append(file_name)
+    return path_list
+
+
+def mixed_file(path, path_list):
+    """
+    合并多个txt文件
+    :param path_list: 待合并的文件列表
+    :return: 合并后的txt文件
+    """
+    content = ''
+    # 循环读取文件内容
+    for file in path_list:
+        with open(file, 'r', encoding='utf-8') as f:
+            content = content + f.read()
+    # 保存文件
+    with open(path + '\合并后的文件.txt', 'a', encoding='utf-8') as file:
+        file.write(content)
+
+
 def read_data(path, mode):
     data = None
     if mode == '1':
@@ -33,6 +62,15 @@ def concat_data(path_list, mode):
     # merge_distinct = merge_data.drop_duplicates(keep='first', inplace=False)
     # df = pd.DataFrame(merge_distinct)
     return merge_data
+
+
+def concat_txt(path_list, mode):
+    """
+    合并多个txt文件
+    :param path_list:
+    :param mode:
+    :return:
+    """
 
 
 def split_excel(df, split_num):
@@ -90,21 +128,20 @@ def split_excel_to_sheet():
 
 
 if __name__ == '__main__':
-    path = r'./file/test.csv'
+    # path = r'./file/test.csv'
 
     #  测试拆分一个excel到多个sheet
     # print(os.getcwd())
     # split_excel_to_sheet()
 
     # 精筛结果合并
-    # path_list = []
-    # for file_path, dir_name, file_names in os.walk(path):
-    #     for file in file_names:
-    #         file_name = os.path.join(file_path, file)
-    #         path_list.append(file_name)
     # df = concat_data(path_list, '2')
     # print(df.head())
 
     # 拆分表格
-    df = read_data(path, '2')
-    split_excel(df, 15)
+    # df = read_data(path, '2')
+    # split_excel(df, 15)
+
+    path_list = get_path_list(r'C:\Users\caoyuanyuan\Desktop\项目文档\Python脚本\file\待合并文件')
+    path = r'C:\Users\caoyuanyuan\Desktop\项目文档\Python脚本\file\待合并文件'
+    mixed_file(path, path_list)
