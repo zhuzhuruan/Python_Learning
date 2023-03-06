@@ -64,15 +64,6 @@ def concat_data(path_list, mode):
     return merge_data
 
 
-def concat_txt(path_list, mode):
-    """
-    合并多个txt文件
-    :param path_list:
-    :param mode:
-    :return:
-    """
-
-
 def split_excel(df, split_num):
     """
     拆分表格，输出多个文件
