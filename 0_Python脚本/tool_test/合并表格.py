@@ -56,7 +56,10 @@ def concat_data(path_list, mode):
     """
     list = []
     for path in path_list:
+        file_name_type = os.path.basename(path)
+        file_name = file_name_type.split('-')[0]
         data = read_data(path, mode)
+        data['oiid'] = file_name
         list.append(data)
     merge_data = pd.concat(list, axis=0)
     # merge_distinct = merge_data.drop_duplicates(keep='first', inplace=False)
@@ -133,6 +136,8 @@ if __name__ == '__main__':
     # df = read_data(path, '2')
     # split_excel(df, 15)
 
-    path_list = get_path_list(r'C:\Users\caoyuanyuan\Desktop\项目文档\Python脚本\file\待合并文件')
-    path = r'C:\Users\caoyuanyuan\Desktop\项目文档\Python脚本\file\待合并文件'
-    mixed_file(path, path_list)
+    path_list = get_path_list(r'C:\Users\caoyuanyuan\Desktop\项目文档\GA项目\2-个案\个案-202406\个案-GA\郓城个案申请\郓城个案申请\wifi')
+    # path = r'C:\Users\caoyuanyuan\Desktop\项目文档\Python脚本\file\待合并文件'
+    # mixed_file(path, path_list)
+    merge_data = concat_data(path_list, '1')
+    merge_data.to_excel(r'C:\Users\caoyuanyuan\Desktop\项目文档\GA项目\2-个案\个案-202406\个案-GA\郓城个案申请\郓城个案申请\合并.xlsx')
