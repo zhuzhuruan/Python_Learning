@@ -33,3 +33,5 @@ def sort_num_list(num_list, mode):
 if __name__ == '__main__':
     sum_num_off()
     # print(sort_num_list([1, 2, 3, 4], 1))
+
+
