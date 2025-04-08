@@ -136,7 +136,7 @@ if __name__ == '__main__':
     # df = read_data(path, '2')
     # split_excel(df, 15)
 
-    path_list = get_path_list(r'C:\Users\caoyuanyuan\Desktop\项目文档\GA项目\2-个案\个案-202406\个案-GA\郓城个案申请\郓城个案申请\wifi')
+    path_list = get_path_list(r'C:\Users\caoyuanyuan\Desktop\项目文档\GA项目\2-个案\个案-202411\易受骗人群\新建文件夹\新建文件夹')
     # path = r'C:\Users\caoyuanyuan\Desktop\项目文档\Python脚本\file\待合并文件'
     # mixed_file(path, path_list)
     merge_data = concat_data(path_list, '1')

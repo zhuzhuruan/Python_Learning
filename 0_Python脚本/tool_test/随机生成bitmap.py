@@ -101,3 +101,6 @@ if __name__ == '__main__':
     new_bitmap = pickle.loads(binary_data)
     # 打印反序列化后的结果
     print(new_bitmap)
+
+
+
